@@ -1,0 +1,318 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-3 text-left">
+                    <input ng-model="searchText" placeholder="Search" style="margin: 15px; width: 300px;" class="form-control">
+                </div>
+                <div class="col-xs-3">
+                    <p style="display: inline;"><input type="checkbox" ng-model="archived" class="checkbox-inline" style="margin-top: 25px; margin-bottom: 25px; margin-left: 25px; margin-right: 0px; width: 50px;">Include Archived</p>
+
+                </div>
+                <div class="col-xs-6 text-right">
+                    <button ng-hide="toggleArchiveButton" class="btn btn-danger editButton" ng-click="toggleArchive = !toggleArchive">Archive</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-left">
+                    <div class="table-responsive table-container"></div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th ng-show="toggleArchive">Action</th>
+                            <th>Date Applied</th>
+                            <th>Company Name</th>
+                            <th>Contact Name</th>
+                            <th>Contact Email</th>
+                            <th>Position</th>
+                            <th>Website</th>
+                            <th>Notes</th>
+                            <th></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-cloak ng-if="archived == false" ng-repeat="app in applications | filter:{isArchived: false} | filter:searchText | orderBy: '-appliedDate' track by app._id">
+                            <td ng-show="toggleArchive">
+                                <button ng-if="app.isArchived == false" class="btn btn-danger buttonEdit"
+                                        ng-click="archive(app)">Archive
+                                </button>
+                            </td>
+                            <td>{{app.appliedDate | date: 'mediumDate'}}</td>
+                            <td>{{app.companyName}}</td>
+                            <td>{{app.contactName}}</td>
+                            <td>{{app.contactEmail}}</td>
+                            <td>{{app.position}}</td>
+                            <td><a href="http://{{app.website}}" target="_blank">{{app.website}}</a></td>
+                            <td>{{app.notes}}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm buttonEdit" data-toggle="modal"
+                                        data-target="#myModal{{app._id}}" data-backdrop="static">view
+                                </button>
+                                <!-- Modal -->
+                                <div id="myModal{{app._id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                        data-dismiss="modal" ng-click="toggleEdit = false">&times;</button>
+                                                <h4 class="modal-title">{{app.companyName}} Application</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!--DATE SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Date Applied:</strong> {{app.appliedDate | date: 'mediumDate'}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Date Applied:</strong><input type="date" class="form-control application-edit" ng-model="app.appliedDate"></p>
+                                                </div>
+
+                                                <!--COMPANY NAME SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Company Name:</strong> {{app.companyName}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Company Name:</strong><input type="text" class="form-control application-edit" ng-model="app.companyName"></p>
+                                                </div>
+
+                                                <!--CONTACT NAME SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Contact Name:</strong> {{app.contactName}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Contact Name:</strong><input type="text" class="form-control application-edit" ng-model="app.contactName"></p>
+                                                </div>
+
+                                                <!--CONTACT EMAIL SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Contact Email:</strong> {{app.contactEmail}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Contact Email:</strong><input type="text" class="form-control application-edit" ng-model="app.contactEmail"></p>
+                                                </div>
+
+                                                <!--CONTACT PHONE SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Contact Phone:</strong> {{app.contactPhone}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Contact Phone:</strong><input type="text" class="form-control application-edit" ng-model="app.contactPhone"></p>
+                                                </div>
+
+                                                <!--POSITION SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Position:</strong> {{app.position}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Position:</strong><input type="text" class="form-control application-edit" ng-model="app.position"></p>
+                                                </div>
+
+                                                <!--PAY SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Stated Pay:</strong> {{app.statedPay | currency }}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Stated Pay:</strong><input type="text" class="form-control application-edit" ng-model="app.statedPay"></p>
+                                                </div>
+
+                                                <!--WEBSITE SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Website:</strong> <a href="{{app.website}}">{{app.website}}</a></p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Website:</strong><input type="text" class="form-control application-edit" ng-model="app.website"></p>
+                                                </div>
+
+                                                <!--ARCHIVED SECTION-->
+                                                <div><p><strong>Archived:</strong> {{app.isArchived}}</p></div>
+
+                                                <!--LAST FOLLOW UP SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Last Follow-up:</strong> {{app.lastFollowUp | date: 'longDate'}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Last Follow-up:</strong><input type="date" class="form-control application-edit" ng-model="app.lastFollowUp"></p>
+                                                </div>
+
+                                                <!--NOTES SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Notes:</strong></p>{{app.notes}}</div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Notes:</strong><textarea rows="8" class="form-control application-edit" ng-model="app.notes"></textarea></p>
+                                                </div>
+
+                                                <!--FOLLOW UP NOTES SECTION-->
+                                                <div ng-hide="toggleEdit"><p><strong>Follow-up Notes:</strong></p>{{app.followUpNote}}</div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Follow-up Notes:</strong><textarea rows="6" class="form-control application-edit" ng-model="app.followUpNote"></textarea></p>
+                                                </div>
+
+                                                <!--EDIT BUTTONS SECTION-->
+                                                    </div>
+                                                    <div class="modal-footer" ng-hide="toggleEdit">
+                                                        <button class="btn btn-warning buttonEdit"
+                                                                ng-click="toggleEdit = true">Edit
+                                                        </button>
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal" ng-click="toggleEdit = false">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                            <!--FOOTER SECTION-->
+                                            <div class="modal-footer" ng-show="toggleEdit">
+                                                <button class="btn btn-warning buttonEdit"
+                                                        ng-click="clickedEdit(app);toggleEdit = false" data-dismiss="modal">Submit
+                                                </button>
+                                                        <button type="button" class="btn btn-default" ng-click="toggleEdit = false">
+                                                            Cancel
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                            </td>
+                        </tr>
+                            <tr ng-cloak ng-if="archived == true" ng-repeat="app in applications | filter:searchText | orderBy: '-appliedDate' track by app._id">
+                                <td ng-show="toggleArchive">
+                                    <button ng-if="app.isArchived == false" class="btn btn-danger buttonEdit"
+                                            ng-click="archive(app)">Archive
+                                    </button>
+                                    <button ng-if="app.isArchived == true" class="btn btn-warning buttonEdit"
+                                            ng-click="unarchive(app)">Unarchive
+                                    </button>
+                                </td>
+                                <td>{{app.appliedDate | date: 'mediumDate'}}</td>
+                                <td>{{app.companyName}}</td>
+                                <td>{{app.contactName}}</td>
+                                <td>{{app.contactEmail}}</td>
+                                <td>{{app.position}}</td>
+                                <td><a href="http://{{app.website}}" target="_blank">{{app.website}}</a></td>
+                                <td>{{app.notes}}</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm buttonEdit" data-toggle="modal"
+                                            data-target="#myModal{{app._id}}" data-backdrop="static">view
+                                    </button>
+                                    <!-- Modal -->
+                                    <div id="myModal{{app._id}}" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal" ng-click="toggleEdit = false">&times;</button>
+                                                    <h4 class="modal-title">{{app.companyName}} Application</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <!--DATE SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Date Applied:</strong> {{app.appliedDate | date: 'mediumDate'}}</p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Date Applied:</strong><input type="date" class="form-control application-edit" ng-model="app.date"></p>
+                                                    </div>
+
+                                                    <!--COMPANY NAME SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Company Name:</strong> {{app.companyName}}</p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Company Name:</strong><input type="text" class="form-control application-edit" ng-model="app.companyName"></p>
+                                                    </div>
+
+                                                    <!--CONTACT NAME SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Contact Name:</strong> {{app.contactName}}</p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Contact Name:</strong><input type="text" class="form-control application-edit" ng-model="app.contactName"></p>
+                                                    </div>
+
+                                                    <!--CONTACT EMAIL SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Contact Email:</strong> {{app.contactEmail}}</p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Contact Email:</strong><input type="text" class="form-control application-edit" ng-model="app.contactEmail"></p>
+                                                    </div>
+
+                                                    <!--CONTACT PHONE SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Contact Phone:</strong> {{app.contactPhone}}</p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Contact Phone:</strong><input type="text" class="form-control application-edit" ng-model="app.contactPhone"></p>
+                                                    </div>
+
+                                                    <!--POSITION SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Position:</strong> {{app.position}}</p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Position:</strong><input type="text" class="form-control application-edit" ng-model="app.position"></p>
+                                                    </div>
+
+                                                    <!--PAY SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Stated Pay:</strong> {{app.statedPay | currency }}</p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Stated Pay:</strong><input type="text" class="form-control application-edit" ng-model="app.statedPay"></p>
+                                                    </div>
+
+                                                    <!--WEBSITE SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Website:</strong> <a href="{{app.website}}">{{app.website}}</a></p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Website:</strong><input type="text" class="form-control application-edit" ng-model="app.website"></p>
+                                                    </div>
+
+                                                    <!--ARCHIVED SECTION-->
+                                                    <div><p><strong>Archived:</strong> {{app.isArchived}}</p></div>
+
+                                                    <!--LAST FOLLOW UP SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Last Follow-up:</strong> {{app.lastFollowUp | date: 'longDate'}}</p></div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Last Follow-up:</strong><input type="date" class="form-control application-edit" ng-model="app.lastFollowUp"></p>
+                                                    </div>
+
+                                                    <!--NOTES SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Notes:</strong></p>{{app.notes}}</div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Notes:</strong><textarea rows="8" class="form-control application-edit" ng-model="app.notes"></textarea></p>
+                                                    </div>
+
+                                                    <!--FOLLOW UP NOTES SECTION-->
+                                                    <div ng-hide="toggleEdit"><p><strong>Follow-up Notes:</strong></p>{{app.followUpNote}}</div>
+
+                                                    <div ng-show="toggleEdit">
+                                                        <p><strong>Follow-up Notes:</strong><textarea rows="6" class="form-control application-edit" ng-model="app.followUpNote"></textarea></p>
+                                                    </div>
+
+                                                    <!--EDIT BUTTONS SECTION-->
+                                                </div>
+                                                <div class="modal-footer" ng-hide="toggleEdit">
+                                                    <button class="btn btn-warning buttonEdit"
+                                                            ng-click="toggleEdit = true">Edit
+                                                    </button>
+                                                    <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal" ng-click="toggleEdit = false">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                                <!--FOOTER SECTION-->
+                                                <div class="modal-footer" ng-show="toggleEdit">
+                                                    <button class="btn btn-warning buttonEdit"
+                                                            ng-click="clickedEdit(app);toggleEdit = false" data-dismiss="modal">Submit
+                                                    </button>
+                                                    <button type="button" class="btn btn-default" ng-click="toggleEdit = false">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

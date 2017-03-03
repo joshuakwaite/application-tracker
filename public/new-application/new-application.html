@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 form-container">
+                    <h2 class="text-center">New Application</h2>
+                    Date:
+                    <input type="date" class="form-control application-input" ng-model="application.date">
+                    Company Name:
+                    <input type="text" class="form-control application-input" placeholder="Company Name"
+                           ng-model="application.companyName">
+                    Contact Name:
+                    <input type="text" class="form-control application-input" placeholder="Contact Name"
+                           ng-model="application.contactName">
+                    Contact Email:
+                    <input type="text" class="form-control application-input" placeholder="Contact Email"
+                           ng-model="application.contactEmail">
+                    Contact Phone:
+                    <input type="text" class="form-control application-input" placeholder="Contact Phone"
+                           ng-model="application.contactPhone">
+                    Position:
+                    <input type="text" class="form-control application-input" placeholder="Position"
+                           ng-model="application.position">
+                    Stated Pay:
+                    <input type="text" class="form-control application-input" placeholder="Stated Pay"
+                           ng-model="application.statedPay">
+                    Website:
+                    <input type="text" class="form-control application-input" placeholder="Website"
+                           ng-model="application.website">
+                    Application Used:
+                    <input type="text" class="form-control application-input" placeholder="Application Used"
+                           ng-model="application.applicationUsed">
+                    Notes:
+                    <textarea rows="8" class="form-control application-input" placeholder="Notes" ng-model="application.notes"></textarea>
+                    <button class="btn btn-success application-input" ng-click="clickedNewApp(application)">Submit</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

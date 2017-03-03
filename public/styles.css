@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+/********************NAVBAR********************/
+
+.navigation-bar {
+    padding: 15px;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
+
+.navigation-bar a {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.nav-left {
+    display: inline-block;
+}
+
+.nav-right {
+    display: inline-block;
+    position: relative;
+    left: 60vw;
+}
+
+/********************NEW APPLICATION********************/
+
+.form-container {
+    border: 1px solid lightgray;
+    -webkit-box-shadow: inset hoff voff blur color;
+    -moz-box-shadow: inset hoff voff blur color;
+    box-shadow: 5px 5px 5px gray;
+    margin-top: 50px;
+}
+
+.application-input {
+    margin: 10px;
+}
+
+/********************APPLICATION********************/
+
+.editButton {
+    margin: 15px;
+    width: 100px;
+    display: inline-block;
+}
+
+.table-container {
+    /*margin-top: 20px;*/
+}
+
+/********************DASHBOARD********************/
+
+.box {
+    display: inline-block;
+    height: 80vh;
+    width: 90vw;
+    border: 1px solid black;
+    margin-top: 50px;
+
+}
+
+
+

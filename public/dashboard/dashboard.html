@@ -1,0 +1,182 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h2>Follow Up Required: {{applications.length}}</h2>
+                    <div class="table-responsive table-container text-left" style="margin-top: 11px;"></div>
+                    <table class="table text-left">
+                        <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Last Follow-up</th>
+                            <th>Company Name</th>
+                            <th>Contact Name</th>
+                            <th>Contact Email</th>
+                            <th>Position</th>
+                            <th>Follow-up Notes</th>
+                            <th></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="app in applications | filter: {isArchived: false} | orderBy: 'lastFollowUp' track by app._id">
+                            <td><button class="btn btn-success buttonEdit btn-xs" data-toggle="modal"
+                                        data-target="#followUpModal{{app._id}}" data-backdrop="static">
+                                Follow Up
+                            </button>
+                            </td>
+                            <td>{{app.lastFollowUp | date: 'mediumDate'}}</td>
+                            <td>{{app.companyName}}</td>
+                            <td>{{app.contactName}}</td>
+                            <td>{{app.contactEmail}}</td>
+                            <td>{{app.position}}</td>
+                            <td>{{app.followUpNote}}</td>
+                            <td>
+                                <button class="btn btn-info btn-xs buttonEdit" data-toggle="modal"
+                                        data-target="#myModal{{app._id}}" data-backdrop="static">view
+                                </button>
+
+
+                                <div id="followUpModal{{app._id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                        data-dismiss="modal" ng-click="toggleEdit = false">&times;</button>
+                                                <h4 class="modal-title">{{app.companyName}} Application</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div ng-hide="toggleEdit"><p><strong>Last Follow-up:</strong> {{app.lastFollowUp | date: 'longDate'}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Last Follow-up:</strong><input type="date" class="form-control application-edit" ng-model="app.lastFollowUp" ng-value=""></p>
+                                                </div>
+
+                                                <div ng-hide="toggleEdit"><p><strong>Follow-up Notes:</strong></p>{{app.followUpNote}}</div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Follow-up Notes:</strong><textarea rows="6" class="form-control application-edit" ng-model="app.followUpNote"></textarea></p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" ng-hide="toggleEdit">
+                                                <button class="btn btn-warning buttonEdit"
+                                                        ng-click="toggleEdit = true">Edit
+                                                </button>
+                                                <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal" ng-click="toggleEdit = false">
+                                                    Close
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer" ng-show="toggleEdit">
+                                                <button class="btn btn-warning buttonEdit"
+                                                        ng-click="clickedEdit(app);toggleEdit = false" data-dismiss="modal">Submit
+                                                </button>
+                                                <button type="button" class="btn btn-default" ng-click="toggleEdit = false">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Modal -->
+                                <div id="myModal{{app._id}}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                        data-dismiss="modal" ng-click="toggleEdit = false">&times;</button>
+                                                <h4 class="modal-title">{{app.companyName}} Application</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div ng-hide="toggleEdit"><p><strong>Date Applied:</strong> {{app.appliedDate | date: 'longDate'}}</p></div>
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Date Applied:</strong><input type="date" class="form-control application-edit" ng-model="app.appliedDate"></p>
+                                                </div>
+                                                <div ng-hide="toggleEdit"><p><strong>Company Name:</strong> {{app.companyName}}</p></div>
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Company Name:</strong><input type="text" class="form-control application-edit" ng-model="app.companyName"></p>
+                                                </div>
+                                                <div ng-hide="toggleEdit"><p><strong>Contact Name:</strong> {{app.contactName}}</p></div>
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Contact Name:</strong><input type="text" class="form-control application-edit" ng-model="app.contactName"></p>
+                                                </div>
+                                                <div ng-hide="toggleEdit"><p><strong>Contact Email:</strong> {{app.contactEmail}}</p></div>
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Contact Email:</strong><input type="text" class="form-control application-edit" ng-model="app.contactEmail"></p>
+                                                </div>
+
+                                                <div ng-hide="toggleEdit"><p><strong>Contact Phone:</strong> {{app.contactPhone}}</p></div>
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Contact Phone:</strong><input type="text" class="form-control application-edit" ng-model="app.contactPhone"></p>
+                                                </div>
+
+                                                <div ng-hide="toggleEdit"><p><strong>Position:</strong> {{app.position}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Position:</strong><input type="text" class="form-control application-edit" ng-model="app.position"></p>
+                                                </div>
+
+                                                <div ng-hide="toggleEdit"><p><strong>Stated Pay:</strong> {{app.statedPay}}</p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Stated Pay:</strong><input type="text" class="form-control application-edit" ng-model="app.statedPay"></p>
+                                                </div>
+
+                                                <div ng-hide="toggleEdit"><p><strong>Website:</strong> <a href="{{app.website}}">{{app.website}}</a></p></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Website:</strong><input type="text" class="form-control application-edit" ng-model="app.website"></p>
+                                                </div>
+
+                                                <div><p><strong>Archived:</strong> {{app.isArchived}}</p></div>
+
+                                                <div><p><strong>Last Follow-up:</strong> {{app.lastFollowUp | date: 'longDate'}}</p></div>
+
+
+                                                <div ng-hide="toggleEdit"><p><strong>Notes:</strong></p>{{app.notes}}<br><br></div>
+
+                                                <div ng-show="toggleEdit">
+                                                    <p><strong>Notes:</strong><textarea rows="6" class="form-control application-edit" ng-model="app.notes"></textarea></p>
+                                                </div>
+
+                                                <div><p><strong>Follow-up Notes:</strong></p>{{app.followUpNote}}<br><br></div>
+
+                                            </div>
+                                            <div class="modal-footer" ng-hide="toggleEdit">
+                                                <button class="btn btn-warning buttonEdit"
+                                                        ng-click="toggleEdit = true">Edit
+                                                </button>
+                                                <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal" ng-click="toggleEdit = false">
+                                                    Close
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer" ng-show="toggleEdit">
+                                                <button class="btn btn-warning buttonEdit"
+                                                        ng-click="clickedEdit(app);toggleEdit = false" data-dismiss="modal">Submit
+                                                </button>
+                                                <button type="button" class="btn btn-default" ng-click="toggleEdit = false">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
