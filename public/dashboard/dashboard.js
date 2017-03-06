@@ -16,6 +16,8 @@ app.controller("dashboardController", ["$scope", "httpService", "$filter", funct
 
             for (var i = 0; i < applications.length; i++) {
                 var old = new Date(applications[i].lastFollowUp);
+                applications[i].appliedDate = new Date(applications[i].appliedDate);
+                applications[i].lastFollowUp = new Date(applications[i].lastFollowUp);
                 if (old < date && applications[i].isArchived === false) {
                     $scope.applications.push(applications[i])
                 }
