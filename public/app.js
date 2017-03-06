@@ -18,6 +18,14 @@ app.config(["$routeProvider", function ($routeProvider){
             templateUrl: "public/new-application/new-application.html",
             controller: "newApplicationController"
         })
+        .when("/login", {
+            templateUrl: "public/authentication/login.html",
+            controller: "authenticationController"
+        })
+        .when("/signup", {
+            templateUrl: "public/authentication/signup.html",
+            controller: "authenticationController"
+        })
         .otherwise({
             redirectTo: "/dashboard"
         })
