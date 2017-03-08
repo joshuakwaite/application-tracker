@@ -10,6 +10,7 @@ body {
     padding: 15px;
     background-color: white;
     border-bottom: 1px solid lightgray;
+    height: 65px;
 }
 
 .navigation-bar a {
@@ -23,8 +24,9 @@ body {
 
 .nav-right {
     display: inline-block;
-    position: relative;
-    left: 45vw;
+    position: absolute;
+    left: 70vw;
+    top: 25px;
 }
 
 /********************NEW APPLICATION********************/
