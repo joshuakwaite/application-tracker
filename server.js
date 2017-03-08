@@ -20,7 +20,7 @@ app.use("/api", expressJwt({secret: config.secret}));
 
 app.use("/api/applications", require("./routes/routes"));
 
-mongoose.connect(config.databse, function (err) {
+mongoose.connect(config.database, function (err) {
     if (err) {
         throw err;
     }
