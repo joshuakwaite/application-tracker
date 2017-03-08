@@ -39,7 +39,7 @@ routes.put("/:id", function (req, res) {
 routes.delete("/:id", function (req, res) {
     Applications.findOneAndRemove({_id: req.params.applicationId, user: req.user._id}, function (err, result) {
         if (err) return res.status(500).send(err);
-        res.send({message: "successfully deleted issue", success: true,}, result);
+        res.send({message: "successfully deleted issue", success: true,});
     });
 
 });
