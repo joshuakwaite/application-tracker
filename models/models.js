@@ -27,7 +27,12 @@ var applicationSchema = new Schema ({
         type: Date,
         default: Date.now
     },
-    followUpNote: Schema.Types.Mixed
-})
+    followUpNote: Schema.Types.Mixed,
+    user: {
+        type: Schema.Types.Mixed,
+        ref: "User",
+        required: true
+    }
+});
 
 module.exports = mongoose.model("Application", applicationSchema)

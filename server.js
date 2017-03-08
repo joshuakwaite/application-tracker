@@ -3,15 +3,24 @@ var app = express();
 var path = require("path");
 var mongoose = require("mongoose");
 var bodyParser = require ("body-parser");
+var morgan = require("morgan");
+var expressJwt = require("express-jwt");
+var config = require("./config");
 var port = process.env.PORT || 8000;
 
 app.use(express.static(path.join(__dirname)));
 
+app.use(morgan("dev"));
+
 app.use(bodyParser.json());
 
-app.use("/applications", require("./routes/routes"));
+app.use("/auth", require("./routes/auth-routes"));
 
-mongoose.connect("mongodb://localhost/applications", function (err) {
+app.use("/api", expressJwt({secret: config.secret}));
+
+app.use("/api/applications", require("./routes/routes"));
+
+mongoose.connect(config.databse, function (err) {
     if (err) {
         throw err;
     }
