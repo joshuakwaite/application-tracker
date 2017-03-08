@@ -29,10 +29,10 @@ var applicationSchema = new Schema ({
     },
     followUpNote: Schema.Types.Mixed,
     user: {
-        type: Schema.Types.Mixed,
+        type: Schema.Types.ObjectId,
         ref: "User",
         required: true
     }
 });
 
-module.exports = mongoose.model("Application", applicationSchema)
+module.exports = mongoose.model("Application", applicationSchema);

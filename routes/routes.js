@@ -13,7 +13,7 @@ routes.get("/", function(req,res) {
 
 routes.get("/:id", function (req, res) {
     Applications.find({_id: req.params.id, user: req.user._id}, function(err, application) {
-        if (err) return res.status(500).send(err)
+        if (err) return res.status(500).send(err);
         res.send(application)
     });
 });
