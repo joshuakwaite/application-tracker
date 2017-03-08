@@ -1,0 +1,12 @@
+<div class="navigation-bar">
+    <div class="nav-left">
+        <a ng-show="userService.isAuthenticated()" href="#!/new-application"><button class="btn btn-primary">New Application</button></a>
+    </div>
+    <div class="nav-right">
+        <a href="#!/dashboard">Dashboard</a>
+        <a href="#!/applications">Applications</a>
+        <a href="#!/about">About</a>
+        <a ng-hide="userService.isAuthenticated()" href="#!/login">Login</a>
+        <a ng-show="userService.isAuthenticated()" href="#!/logout">Logout</a>
+    </div>
+</div>

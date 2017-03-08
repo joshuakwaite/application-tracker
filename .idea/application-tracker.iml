@@ -13,5 +13,6 @@
     <orderEntry type="library" name="node-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="jquery-3.1.1" level="application" />
+    <orderEntry type="library" name="express-jwt-DefinitelyTyped" level="application" />
   </component>
 </module>
