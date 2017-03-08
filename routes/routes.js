@@ -15,7 +15,7 @@ routes.get("/", function(req,res) {
     if (req.query.applicationUsed) query.applicationUsed = req.query.applicationUsed;
     if (req.query.isArchived) query.isArchived = req.query.isArchived;
     if (req.query.contactEmail) query.contactEmail = req.query.contactEmail;
-    if (req.query.contactPhone) query.contactPhone = req.query.contactPhone;
+    if (req.query.contactPhone) query.contactPhone = req.query.contac
     if (req.query.lastFollowUp) query.lastFollowUp = req.query.lastFollowUp;
     if (req.query.followUpNote) query.followUpNote = req.query.followUpNote;
 
