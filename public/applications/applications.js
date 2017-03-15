@@ -8,9 +8,9 @@ app.controller("applicationController", ["$scope", "httpService", function($scop
 
     function getApi() {
         httpService.getApi().then(function (response) {
-            var applications = response.data
+            var applications = response.data;
 
-            $scope.applications = []
+            $scope.applications = [];
 
 
             for (var i = 0; i < applications.length; i++) {
